@@ -1,0 +1,63 @@
+{
+	"name": "@chatsift/roles",
+	"description": "Providing accessible self-assignable roles to your community",
+	"packageManager": "yarn@3.2.1",
+	"private": true,
+	"version": "0.0.0",
+	"workspaces": [
+		"packages/*"
+	],
+	"author": {
+		"name": "DD",
+		"email": "didinele.dev@gmail.com"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/chatsift/roles.git"
+	},
+	"bugs": {
+		"url": "https://github.com/chatsift/roles/issues"
+	},
+	"homepage": "https://github.com/chatsift/roles",
+	"scripts": {
+		"lint": "turbo run lint && prettier --check --plugin-search-dir=. .",
+		"build": "turbo run build",
+		"format": "prettier --write --plugin-search-dir=. .",
+		"prisma": "dotenv -e .env prisma",
+		"deploy-commands": "yarn build && dotenv -e .env -v DEPLOY=true -- node --es-module-specifier-resolution=node --enable-source-maps ./packages/bot/dist/index.js",
+		"start-bot": "dotenv -e .env -- node --es-module-specifier-resolution=node --enable-source-maps ./packages/bot/dist/index.js",
+		"start-api": "dotenv -e .env -- node --es-module-specifier-resolution=node --enable-source-maps ./packages/api/dist/index.js",
+		"prepare": "is-ci || husky install",
+		"update": "yarn upgrade-interactive"
+	},
+	"devDependencies": {
+		"@commitlint/cli": "^17.1.2",
+		"@commitlint/config-angular": "^17.1.0",
+		"@typescript-eslint/eslint-plugin": "^5.41.0",
+		"@typescript-eslint/parser": "^5.41.0",
+		"dotenv-cli": "^6.0.0",
+		"eslint": "^8.26.0",
+		"eslint-config-neon": "^0.1.39",
+		"eslint-plugin-typescript-sort-keys": "^2.1.0",
+		"husky": "^8.0.1",
+		"is-ci": "^3.0.1",
+		"prettier": "^2.7.1",
+		"prettier-eslint": "^15.0.1",
+		"prisma": "^4.5.0",
+		"turbo": "1.6.1",
+		"typescript": "^4.8.4"
+	},
+	"husky": {
+		"hooks": {
+			"pre-commit": "lint-staged"
+		}
+	},
+	"lint-staged": {
+		"*.ts": [
+			"eslint --fix"
+		],
+		"*.tsx": [
+			"eslint --fix"
+		]
+	}
+}

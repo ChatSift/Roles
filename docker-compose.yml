@@ -1,0 +1,45 @@
+version: '3.7'
+
+services:
+  postgres:
+    image: postgres:12-alpine
+    environment:
+      POSTGRES_USER: 'roles'
+      POSTGRES_PASSWORD: 'admin'
+      POSTGRES_DB: 'roles'
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    restart: unless-stopped
+    ports:
+      - 127.0.0.1:${DATABASE_PORT}:5432
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U roles']
+      interval: 10s
+      timeout: 5s
+
+  bot:
+    image: chatsift/roles
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    env_file:
+      - ./.env
+    environment:
+      DATABASE_URL: 'postgresql://roles:admin@postgres:5432/roles'
+    restart: unless-stopped
+    volumes:
+      - ./logs:/usr/roles/logs
+    depends_on:
+      - postgres
+    command:
+      [
+        'node',
+        '--es-module-specifier-resolution=node',
+        '--enable-source-maps',
+        '--no-warnings',
+        './packages/bot/dist/index.js',
+      ]
+
+volumes:
+  postgres-data:
+    name: 'roles-postgres-data'
