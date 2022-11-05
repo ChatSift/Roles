@@ -68,7 +68,7 @@ export class CommandHandler {
 				'Error handling message component',
 			);
 			const content = `Something went wrong running component. Please report this bug.\n\n${inlineCode(
-				error as Error['message'],
+				error as string,
 			)}`;
 
 			await interaction.reply({ content, ephemeral: true }).catch(() => null);
@@ -99,7 +99,6 @@ export class CommandHandler {
 			// eslint-disable-next-line @typescript-eslint/return-await
 			return await command.handle(interaction);
 		} catch (error) {
-			// TODO(DD): Consider dealing with specific error
 			logger.error(
 				{
 					err: error,
@@ -108,7 +107,7 @@ export class CommandHandler {
 				'Error handling command',
 			);
 			const content = `Something went wrong running command. This could be a bug, or it could be related to your permissions.\n\n${inlineCode(
-				error as Error['message'],
+				error as string,
 			)}`;
 
 			// Try to display something to the user.

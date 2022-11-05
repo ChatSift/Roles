@@ -271,9 +271,9 @@ export default class implements Command<ApplicationCommandType.ChatInput> {
 						for (const [idx, actionRow] of actionRows.entries()) {
 							const slice = roles.slice(idx * 5, (idx + 1) * 5);
 							actionRow.setComponents(
-								slice.map((role) => {
+								slice.map((role, roleIdx) => {
 									const button = new ButtonBuilder()
-										.setCustomId(`toggle-role|${prompt.id}|${role.roleId}`)
+										.setCustomId(`toggle-role|${prompt.id}|${role.roleId}|${idx}|${roleIdx}`)
 										.setStyle(ButtonStyle.Primary);
 
 									const roleObject = parentInteraction.member.roles.cache.get(role.roleId);

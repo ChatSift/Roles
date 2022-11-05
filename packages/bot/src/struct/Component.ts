@@ -6,7 +6,7 @@ export type ComponentInfo = {
 };
 
 export type Component<Type extends MessageComponentInteraction<'cached'> = MessageComponentInteraction<'cached'>> = {
-	handle(interaction: Type, ...args: any[]): Awaitable<unknown>;
+	handle(interaction: Type, ...args: string[]): Awaitable<unknown>;
 	readonly name?: string;
 };
 
