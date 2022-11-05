@@ -11,5 +11,19 @@ datasource db {
 model Role {
 	id        Int      @id @default(autoincrement())
 	roleId    String
-	guildId   String
+	promptId  Int
+  prompt    Prompt   @relation(fields: [promptId], references: [id], onDelete: Cascade)
+
+  @@unique([roleId, promptId])
+}
+
+model Prompt {
+  id          Int      @id @default(autoincrement())
+  guildId     String
+  title       String
+  description String?
+  imageUrl    String?
+  color       String?
+  roles       Role[]
+  useButtons  Boolean  @default(false)
 }

@@ -59,5 +59,8 @@
 		"*.tsx": [
 			"eslint --fix"
 		]
+	},
+	"resolutions": {
+		"@discordjs/builders": "1.4.0-dev.1667347887-5152abf.0"
 	}
 }

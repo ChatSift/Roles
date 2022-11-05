@@ -23,7 +23,6 @@ export default class implements Event<typeof Events.InteractionCreate> {
 					await this.commandHandler.handleMessageComponent(interaction);
 				}
 
-				logger.warn(interaction, 'Message component interaction in non-cached guild');
 				break;
 			}
 
@@ -32,8 +31,12 @@ export default class implements Event<typeof Events.InteractionCreate> {
 				break;
 			}
 
+			case InteractionType.ModalSubmit: {
+				break;
+			}
+
 			default: {
-				logger.warn(`Unknown interaction type: ${interaction.type}`);
+				logger.warn(interaction, 'Unhandled interaction type');
 				break;
 			}
 		}

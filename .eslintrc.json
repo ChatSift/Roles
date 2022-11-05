@@ -19,6 +19,7 @@
 		"no-unused-vars": "off",
 		"import/extensions": "off",
 		"no-useless-constructor": "off",
-		"unicorn/require-post-message-target-origin": "off"
+		"unicorn/require-post-message-target-origin": "off",
+		"no-labels": ["error", { "allowLoop": true }]
 	}
 }
