@@ -276,7 +276,7 @@ export default class implements Command<ApplicationCommandType.ChatInput> {
 										.setCustomId(`toggle-role|${prompt.id}|${role.roleId}|${idx}|${roleIdx}`)
 										.setStyle(ButtonStyle.Primary);
 
-									const roleObject = parentInteraction.member.roles.cache.get(role.roleId);
+									const roleObject = parentInteraction.guild.roles.cache.get(role.roleId);
 									if (roleObject) {
 										button.setLabel(roleObject.name);
 									} else {
